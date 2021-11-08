@@ -1,4 +1,5 @@
 module sda{
     requires javafx.graphics;
-    exports sda.pl to javafx.graphics;
+    requires javafx.controls;
+    exports sda.pl to javafx.controls, javafx.graphics;
 }
