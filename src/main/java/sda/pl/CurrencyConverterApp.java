@@ -8,13 +8,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import sda.pl.repository.SimpleGenericRepository;
 
-import java.net.URI;
 
 
 public class CurrencyConverterApp extends Application {
-    private static final URI NBP_URI = URI.create("http://api.nbp.pl/api/exchangerates/tables/A?format=json");
     // UI elements
     VBox root = new VBox();
     Label titleLabel = new Label("Convert");
