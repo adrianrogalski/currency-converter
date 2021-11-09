@@ -1,5 +1,5 @@
 # Currency Converter App
-A simple currency app build using *inlinelink(nbp.pl) API and JavaFX
+A simple currency app build using [nbp.pl]() API and JavaFX
 ## Goal
 The goal here was to practice basic usage of advanced Java functions like streams, generic types and lambda functions moreover I wanted to use some architecture like service and divide my project into proper packages(repositories and models, service functionality, exceptions). While building the final app I tried to apply OOP mechanisms build in Java and use some of the JavaFx framework functionalities.
 ## Demo
