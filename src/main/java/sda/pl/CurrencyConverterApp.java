@@ -5,6 +5,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 
@@ -26,6 +28,7 @@ public class CurrencyConverterApp extends Application {
     public void start(Stage stage) throws Exception {
         root.getChildren().addAll(titleLabel,amountLabel,amount,sourceCurrencyLabel,sourceCurrency,targetCurrencyLabel,targetCurrency, resultLabel, result);
         root.setSpacing(10);
+        titleLabel.setFont(Font.font("Verdana", FontWeight.BLACK, 30));
         root.setAlignment(Pos.CENTER);
         Scene scene = new Scene(root, 400, 400);
         stage.setScene(scene);
