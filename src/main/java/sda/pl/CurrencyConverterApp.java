@@ -20,7 +20,7 @@ public class CurrencyConverterApp extends Application {
     NBPService nbpService = new NBPAPIService();
     // UI elements
     VBox root = new VBox();
-    Label titleLabel = new Label("Convert");
+    Label titleLabel = new Label("EXCHANGE");
     Label amountLabel = new Label("Amount");
     Spinner<Double> amount = new Spinner<>(new SpinnerValueFactory.DoubleSpinnerValueFactory(0,1_000_000,1));
     Label sourceCurrencyLabel = new Label("From");
@@ -57,7 +57,9 @@ public class CurrencyConverterApp extends Application {
         );
 
         root.setSpacing(10);
-        titleLabel.setFont(Font.font("Verdana", FontWeight.BLACK, 30));
+        titleLabel.setFont(Font.font("Courier new", FontWeight.BLACK, 30));
+        amount.getEditor().setFont(Font.font("Lato", FontWeight.BLACK, 25));
+        resultValue.setFont(Font.font("Courier new", FontWeight.BLACK, 25));
         root.setAlignment(Pos.CENTER);
 
         // Integration

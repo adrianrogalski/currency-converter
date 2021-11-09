@@ -14,8 +14,6 @@ public class Rate {
 
     @Override
     public String toString() {
-        return "currency: '" + currency + '\n' +
-                "code: '" + code + '\n' +
-                "mid: " + mid;
+        return currency + " - " + code;
     }
 }
