@@ -27,9 +27,9 @@ public class CurrencyConverterApp extends Application {
     Label targetCurrencyLabel = new Label("To");
     ComboBox<Rate> targetCurrency = new ComboBox<>();
     Label resultLabel = new Label("Result:");
-    TextField result = new TextField("0.0");
+    Label resultValue = new Label("0.0");
 
-    // Scene prep
+
     @Override
     public void start(Stage stage){
         createCurrencyCalculatorScene();
@@ -41,15 +41,28 @@ public class CurrencyConverterApp extends Application {
 
     public void createCurrencyCalculatorScene() {
         // Decoration
-        root.getChildren().addAll(titleLabel,amountLabel,amount,sourceCurrencyLabel,sourceCurrency,targetCurrencyLabel,targetCurrency, resultLabel, result);
+        root.getChildren().addAll(titleLabel,amountLabel,amount,sourceCurrencyLabel,sourceCurrency,targetCurrencyLabel,targetCurrency, resultLabel, resultValue);
+        amount.setEditable(true);
         root.setSpacing(10);
         titleLabel.setFont(Font.font("Verdana", FontWeight.BLACK, 30));
         root.setAlignment(Pos.CENTER);
 
-        // Integration with service
+        // Integration
+        // Listing rates
         List<Rate> rates = nbpService.getRates();
         sourceCurrency.getItems().addAll(rates);
         targetCurrency.getItems().addAll(rates);
+
+        // Conversion result
+        amount.getEditor().setOnAction(event -> {
+            double result = nbpService.calculate(
+                    sourceCurrency.getSelectionModel().getSelectedItem(),
+                    amount.getValue(),
+                    targetCurrency.getSelectionModel().getSelectedItem()
+            );
+            resultValue.setText(String.format("%.2f", result));
+        });
+
     }
 
     public static void main(String[] args) {

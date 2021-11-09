@@ -9,6 +9,7 @@ import lombok.*;
 public class Rate {
     private String currency;
     private String code;
+    // mid: average currency exchange relative to PLN
     private Double mid;
 
     @Override
