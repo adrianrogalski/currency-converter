@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.util.converter.DoubleStringConverter;
 import sda.pl.model.Rate;
 import sda.pl.service.NBPAPIService;
 import sda.pl.service.NBPService;
@@ -43,6 +44,18 @@ public class CurrencyConverterApp extends Application {
         // Decoration
         root.getChildren().addAll(titleLabel,amountLabel,amount,sourceCurrencyLabel,sourceCurrency,targetCurrencyLabel,targetCurrency, resultLabel, resultValue);
         amount.setEditable(true);
+        amount.getEditor().setTextFormatter(
+                // checks if new keyboard input value is valid(is double) and shows it when it is
+                new TextFormatter<Double>( new DoubleStringConverter(), 0.0, change -> {
+                    try {
+                        Double.parseDouble(change.getControlNewText());
+                        return change;
+                    } catch (NumberFormatException e) {
+                        return null;
+                    }
+                })
+        );
+
         root.setSpacing(10);
         titleLabel.setFont(Font.font("Verdana", FontWeight.BLACK, 30));
         root.setAlignment(Pos.CENTER);
@@ -53,16 +66,30 @@ public class CurrencyConverterApp extends Application {
         sourceCurrency.getItems().addAll(rates);
         targetCurrency.getItems().addAll(rates);
 
-        // Conversion result
-        amount.getEditor().setOnAction(event -> {
-            double result = nbpService.calculate(
-                    sourceCurrency.getSelectionModel().getSelectedItem(),
-                    amount.getValue(),
-                    targetCurrency.getSelectionModel().getSelectedItem()
-            );
-            resultValue.setText(String.format("%.2f", result));
+        // Default values
+        sourceCurrency.getSelectionModel().selectLast();
+        targetCurrency.getSelectionModel().selectLast();
+
+        // Updates result value after any change in amount
+        amount.valueProperty().addListener((e,m,o) -> {
+            calculateResult();
         });
 
+        sourceCurrency.setOnAction(event -> {
+            calculateResult();
+        });
+        targetCurrency.setOnAction(event -> {
+            calculateResult();
+        });
+    }
+
+    private void calculateResult() {
+        final double result = nbpService.calculate(
+                sourceCurrency.getSelectionModel().getSelectedItem(),
+                amount.getValue(),
+                targetCurrency.getSelectionModel().getSelectedItem()
+        );
+        resultValue.setText(String.format("%.2f", result));
     }
 
     public static void main(String[] args) {
