@@ -7,6 +7,8 @@ The goal here was to practice basic usage of advanced Java functions like stream
 ## User stories
 The project attempts to satisfactorily fulfill the following user stories:
 * Users can convert one currency to another
+* User can see all available currencies
+* User can interact with the app via graphical UI
 ## Build With
 * Java 11
 * Maven
